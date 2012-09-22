@@ -1,0 +1,9 @@
+name: HeroicChat
+main: heroicchat.main.HeroicChat
+author: Sgt_Tailor
+description: A Heroic chat plugin
+version: 0.1
+commands:
+    heroicchat:
+        aliases: [hc, heroicc]
+        usage: /heroicchat
