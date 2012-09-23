@@ -11,6 +11,7 @@ public class Channel implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String owner;
 	private String prefix;
 	private String name;
 	private ArrayList<String> receivers = new ArrayList<String>();
@@ -84,6 +85,14 @@ public class Channel implements Serializable{
 				Bukkit.getPlayerExact(receivers.get(i)).sendMessage(message);
 			}
 		}
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 }

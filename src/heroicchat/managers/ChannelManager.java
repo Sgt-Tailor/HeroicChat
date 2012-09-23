@@ -1,5 +1,9 @@
 package heroicchat.managers;
 
+import java.util.ArrayList;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import heroicchat.main.Channel;
@@ -36,16 +40,29 @@ public class ChannelManager{
 		return null;
 		
 	}
+	public Channel getChannel(Player p) {
+		String cname = plugin.players.get(p.getName());
+		Channel c = getChannel(cname);
+		return c;		
+	}
 	public void playerSwitchChannel(Player p, Channel newer) {
 		Channel old = getChannel(plugin.players.get(p.getName()));
 		old.removeReceiver(p.getName());
 		if(old.getReceivers().size() == 0) {
+			if(!old.isPermanent()) {
 			deleteChannel(old.getName());
+			}
 		}
 		plugin.players.put(p.getName(), newer.getName());
 		newer.addReceiver(p.getName());
 	}
 	public void deleteChannel(String name) {
+		Channel c = getChannel(name);
+		c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA +"This channel has been deleted, you have been moved to the default channel");
+		ArrayList<String> players = c.getReceivers();
+		for(int i=0; i<players.size(); i++) {
+			playerSwitchChannel(Bukkit.getPlayerExact(players.get(i)), getChannel("default"));
+		}
 		if(name.equals("default")) {
 			return;
 		}

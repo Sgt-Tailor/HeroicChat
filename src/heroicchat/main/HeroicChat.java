@@ -40,7 +40,7 @@ public class HeroicChat extends JavaPlugin {
 	public void onEnable() {
 		PluginManager pm = getServer().getPluginManager();
 		deSerialiseObjects();
-		//removeOfflineReceivers(); this should never happen now
+		removeOfflineReceivers(); 
 		if(cnames.size() == 0) {
 			createDefaultChannel();
 		}
@@ -78,10 +78,8 @@ public class HeroicChat extends JavaPlugin {
 		PluginDescriptionFile pdfFile = this.getDescription();
 		this.logger.info(pdfFile.getName() + " is now disabled ");
 	}
-	
 	private void createDefaultChannel() {
-		logger.info("WOSERASDFAET");
-		Channel c = new Channel("default", "default", null, false, false);
+		Channel c = new Channel("default", "default", null, false, true);
 		channels.put("default", c);
 		cnames.add("default");
 		players.put("Player", c.getName());
@@ -120,7 +118,7 @@ public class HeroicChat extends JavaPlugin {
 				if(receivers != null) {
 					for(int j=0; j<receivers.size();j++) {
 						Player[] op = Bukkit.getOnlinePlayers();
-						for(int k = 0; k<=op.length; k++) {
+						for(int k = 0; k<op.length; k++) {
 							if(op[k].getName().equals(receivers.get(j))) {
 								
 							}
