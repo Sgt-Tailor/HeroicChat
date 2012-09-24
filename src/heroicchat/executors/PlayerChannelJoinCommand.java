@@ -50,6 +50,34 @@ public boolean PlayerChannelJoin(CommandSender sender, Command cmd, String label
 				}
 				return true;
 			}
+			
+			
+		}
+		if(arg.length == 1) {
+			if(arg[0].equalsIgnoreCase("leave")) {
+				Player p = (Player) sender;
+				Channel old = cm.getChannel(p);
+				Channel newer = cm.getChannel("default");
+				PlayerSwitchChannelEvent event = new PlayerSwitchChannelEvent(p, old, newer);
+				Bukkit.getServer().getPluginManager().callEvent(event);
+				
+				if(!event.isCancelled()) {
+					if(old.equals(newer)) {
+						sender.sendMessage(ChatColor.RED + "You are already in that channel");
+						return true;
+					}
+					cm.getChannel("default").broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + sender.getName() + " has joined your channel");
+					
+					cm.playerSwitchChannel((Player) sender, cm.getChannel("default"));
+					
+					old.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + sender.getName() + " has left your channel");
+					
+					sender.sendMessage(ChatColor.GREEN + "Channel switched");
+					return true;
+				}
+				return true;
+				
+			}
 		}
 		return false;
 	}

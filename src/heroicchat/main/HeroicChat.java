@@ -60,17 +60,6 @@ public class HeroicChat extends JavaPlugin {
 		PluginDescriptionFile pdfFile = this.getDescription();
 		this.logger.info(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled.");
 	}
-	
-	
-
-
-
-	
-
-
-
-
-
 	@Override
 	public void onDisable() {
 		serialiseObjects();
@@ -112,27 +101,46 @@ public class HeroicChat extends JavaPlugin {
 	}
 	public void removeOfflineReceivers() {
 		if(cnames != null) {
-			for(int i=0; i < cnames.size(); i++) {
-				Channel c = channels.get(cnames.get(i));
+			int amountofchannels = cnames.size();
+			for(int i=0; i<amountofchannels;i++) {//for every channel that exists
+				String name = cnames.get(i);
+				Channel c = channels.get(name);
 				ArrayList<String> receivers = c.getReceivers();
-				if(receivers != null) {
-					for(int j=0; j<receivers.size();j++) {
-						Player[] op = Bukkit.getOnlinePlayers();
-						for(int k = 0; k<op.length; k++) {
-							if(op[k].getName().equals(receivers.get(j))) {
-								
-							}
-							else {
-							c.removeReceiver(receivers.get(j));
-							}
-						}
+				int j=0; 
+				while(j<receivers.size()) {//for every receiver
+					String p = receivers.get(j);//get recievers name
+					if(!playerIsOnline(p)) {//if the player is not online
+						c.removeReceiver(p);
 						
+					}
+					j++;
+				}
+				if(c.getReceivers().size() == 0 ) {
+					if(!c.getName().equals("default")) {
+						if(!c.isPermanent()) {
+						channels.remove(name);
+						cnames.remove(cnames.indexOf(name));
+						amountofchannels = amountofchannels -1;
+						}
 						
 					}
 				}
+				else {
+					channels.put(name, c); //update channel receivers
+				}
+				
 			}
 		}
 		
+	}
+	private boolean playerIsOnline(String p) {
+		Player[] op = Bukkit.getOnlinePlayers();
+		for(int k=0; k<op.length; k++) {//for every online player
+			if(op[k].getName().equals(p)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	private void firstrun() {//create the config.yml
 		PluginDescriptionFile pdfFile = this.getDescription();

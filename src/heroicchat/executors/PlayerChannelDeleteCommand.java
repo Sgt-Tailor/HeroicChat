@@ -1,5 +1,6 @@
 package heroicchat.executors;
 
+import heroicchat.events.channel.ChannelDeleteEvent;
 import heroicchat.main.HeroicChat;
 import heroicchat.managers.ChannelManager;
 
@@ -7,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class PlayerChannelDeleteCommand {
 	private HeroicChat plugin;
@@ -24,7 +26,13 @@ public class PlayerChannelDeleteCommand {
 							return true;
 						}
 						else {
-							cm.deleteChannel(arg[1]);
+							ChannelDeleteEvent event = new ChannelDeleteEvent((Player) sender, arg[1]);
+							Bukkit.getPluginManager().callEvent(event);
+							if(!event.isCancelled()) {
+								cm.deleteChannel(arg[1]);
+								sender.sendMessage(ChatColor.GREEN + "Channel deleted");
+								return true;
+							}
 							return true;
 						}
 					}
