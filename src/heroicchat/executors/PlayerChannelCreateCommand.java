@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class PlayerChannelCreateCommand {
-	public HeroicChat plugin;
+	private HeroicChat plugin;
 	public PlayerChannelCreateCommand(HeroicChat instance){
 		plugin=instance;
 	}
@@ -37,7 +37,7 @@ public class PlayerChannelCreateCommand {
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					
 					if(!event.isCancelled()) {
-						cm.createNewChannel(cname, "["+cname+"]", false, null, false);
+						cm.createNewChannel(cname, cname, false, null, false);
 						Channel current = cm.getChannel(plugin.players.get(sender.getName()));
 						Channel newer = cm.getChannel(cname);
 						PlayerSwitchChannelEvent pevent = new PlayerSwitchChannelEvent(p, current, newer);
@@ -71,7 +71,7 @@ public class PlayerChannelCreateCommand {
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					
 					if(!event.isCancelled()) {
-						cm.createNewChannel(cname, "["+cname+"]", false, null, true);
+						cm.createNewChannel(cname, cname, false, null, true);
 						Channel current = cm.getChannel(plugin.players.get(sender.getName()));
 						Channel newer = cm.getChannel(cname);
 						PlayerSwitchChannelEvent pevent = new PlayerSwitchChannelEvent(p, current, newer);

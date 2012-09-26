@@ -30,7 +30,7 @@ public class HeroicChat extends JavaPlugin {
 	public HashMap<String, Channel> channels = new HashMap<String,Channel>();
 	public HashMap<String, String> players = new HashMap<String,String>();
 	
-	public static HeroicChat plugin;
+	
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public GeneralCommand GeneralExecutor;
 	public File configFile;
@@ -151,7 +151,7 @@ public class HeroicChat extends JavaPlugin {
 			} catch (IOException e) {
 				
 			}
-			//config.set("default-channel-name", "default");//add the default value to the config.yml
+			config.set("show-channel-prefix", true);
 			//config.set("default-channel-prefix", "default");
 			
 			this.logger.info("[" + pdfFile.getName()+ "]" + " config.yml successfully created");

@@ -1,7 +1,10 @@
 package heroicchat.executors;
 
+import heroicchat.main.Channel;
 import heroicchat.main.HeroicChat;
+import heroicchat.managers.ChannelManager;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -11,6 +14,65 @@ public class PlayerChannelEditCommand {
 		plugin = instance;
 	}
 public boolean PlayerChannelEdit(CommandSender sender, Command cmd, String label, String[] arg){
+		ChannelManager cm = new ChannelManager(plugin);
+		if(arg.length == 4 ) {//hc edit <name> <property> <new value>
+			if(arg[0].equalsIgnoreCase("edit")) {
+				String cname = arg[1];
+				String property = arg[2];
+				String newvalue = arg[3];
+				if(cm.channelExists(cname)) {
+					if(!cname.equalsIgnoreCase("default")) {
+						Channel c = cm.getChannel(cname);
+						if(sender.hasPermission("heroicchat.channel.edit.all") || c.getOwner().equals(sender.getName())){
+							if(sender.hasPermission("heroicchat.channel.edit.own")) {
+								if(property.equalsIgnoreCase("locked")) {
+									if(newvalue.equalsIgnoreCase("true")) {
+										c.setLocked(true);
+										sender.sendMessage(ChatColor.GREEN + "Channel edited");
+										return true;
+									}
+									if(newvalue.equalsIgnoreCase("false")) {
+										c.setLocked(false);
+										c.setPassword(null);
+										sender.sendMessage(ChatColor.GREEN + "Channel edited");
+										return true;
+									}
+								}
+								else if(property.equalsIgnoreCase("password")) {
+									if(!c.isLocked()) {
+										c.setLocked(true);
+									}
+									c.setPassword(newvalue);
+									sender.sendMessage(ChatColor.GREEN + "Channel edited");
+									return true;
+								}
+								else if(property.equalsIgnoreCase("permanent")) {
+									if(newvalue.equalsIgnoreCase("true")) {
+										c.setPermanent(true);
+										sender.sendMessage(ChatColor.GREEN + "Channel edited");
+										return true;
+									}
+									if(newvalue.equalsIgnoreCase("false")) {
+										c.setPermanent(false);
+										return true;
+									}
+									return false;
+								}
+								else if(property.equalsIgnoreCase("owner")) {
+									c.setOwner(newvalue);
+									return true;
+									
+								}
+							}
+						}
+					}
+				}
+				else {
+					sender.sendMessage(ChatColor.RED + "That channel does not exist");
+				}
+				
+			}
+		}
 		
 		return false;
 	}

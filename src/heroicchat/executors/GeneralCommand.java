@@ -94,12 +94,19 @@ public class GeneralCommand implements CommandExecutor {
 						}
 					}
 				}
+				if(arg[0].equalsIgnoreCase("kick")) {
+					PlayerChannelKickCommand executor = new PlayerChannelKickCommand(plugin);
+					if(executor.PlayerChannelKick(sender, cmd, label, arg)) {
+						return true;
+					}
+				}
 			}
 			sender.sendMessage(ChatColor.GOLD + "----HeroicChat-Help-Message----");
 			sender.sendMessage(ChatColor.GOLD + "/hc createpermanent <name>" + ChatColor.GRAY + " create a permanent channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc create <name>"+ ChatColor.GRAY + " create a temporary channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc edit <name> <property> <new value>" + ChatColor.GRAY + " edit a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc delete <name>" + ChatColor.GRAY + " delete a channel channel");
+			sender.sendMessage(ChatColor.GOLD + "/hc kick <name>" + ChatColor.GRAY + " kick a player from a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc list" + ChatColor.GRAY + " list all channels");
 			sender.sendMessage(ChatColor.GOLD + "/hc info (name)" + ChatColor.GRAY + " display info about a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc join <name> (password)" + ChatColor.GRAY + " join a channel");

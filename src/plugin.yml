@@ -7,3 +7,12 @@ commands:
     heroicchat:
         aliases: [hc, heroicc]
         usage: /heroicchat
+permissions:
+    heroicchat.channel.bypasslock:
+        default: OP
+    heroicchat.player.kick:
+        default: OP
+    heroicchat.channel.edit.own:
+        default: true
+    heroicchat.channel.edit.all:
+        default: OP

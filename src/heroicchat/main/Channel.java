@@ -20,7 +20,7 @@ public class Channel implements Serializable{
 	private boolean permanent;
 	
 	public Channel(String prefix, String name, String password, boolean locked, boolean permanent) {
-		this.prefix = prefix;
+		this.prefix = "["+prefix+"]";
 		this.name = name;
 		this.password = password;
 		this.locked = locked;
