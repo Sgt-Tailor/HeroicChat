@@ -26,41 +26,72 @@ public boolean PlayerChannelEdit(CommandSender sender, Command cmd, String label
 						if(sender.hasPermission("heroicchat.channel.edit.all") || c.getOwner().equals(sender.getName())){
 							if(sender.hasPermission("heroicchat.channel.edit.own")) {
 								if(property.equalsIgnoreCase("locked")) {
-									if(newvalue.equalsIgnoreCase("true")) {
-										c.setLocked(true);
+									if(sender.hasPermission("heroicchat.channel.edit.password")) {
+										if(newvalue.equalsIgnoreCase("true")) {
+											c.setLocked(true);
+											sender.sendMessage(ChatColor.GREEN + "Channel edited");
+											return true;
+										}
+										if(newvalue.equalsIgnoreCase("false")) {
+											c.setLocked(false);
+											c.setPassword(null);
+											sender.sendMessage(ChatColor.GREEN + "Channel edited");
+											return true;
+										}
+									}
+									else {
+										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+										return true;
+									}
+								}
+								else if(property.equalsIgnoreCase("prefix")) {
+									if(sender.hasPermission("heroicchat.channel.edit.password")) {
+										c.setPrefix(newvalue);
 										sender.sendMessage(ChatColor.GREEN + "Channel edited");
 										return true;
 									}
-									if(newvalue.equalsIgnoreCase("false")) {
-										c.setLocked(false);
-										c.setPassword(null);
-										sender.sendMessage(ChatColor.GREEN + "Channel edited");
+									else {
+										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
 										return true;
 									}
 								}
 								else if(property.equalsIgnoreCase("password")) {
-									if(!c.isLocked()) {
-										c.setLocked(true);
-									}
-									c.setPassword(newvalue);
-									sender.sendMessage(ChatColor.GREEN + "Channel edited");
-									return true;
-								}
-								else if(property.equalsIgnoreCase("permanent")) {
-									if(newvalue.equalsIgnoreCase("true")) {
-										c.setPermanent(true);
+									if(sender.hasPermission("heroicchat.channel.edit.password")) {
+										if(!c.isLocked()) {
+											c.setLocked(true);
+										}
+										c.setPassword(newvalue);
 										sender.sendMessage(ChatColor.GREEN + "Channel edited");
 										return true;
 									}
-									if(newvalue.equalsIgnoreCase("false")) {
-										c.setPermanent(false);
+									else {
+										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
 										return true;
 									}
-									return false;
+
+								}
+								else if(property.equalsIgnoreCase("permanent")) {
+									if(sender.hasPermission("heroicchat.channel.edit.permanent")) {
+										if(newvalue.equalsIgnoreCase("true")) {
+											c.setPermanent(true);
+											sender.sendMessage(ChatColor.GREEN + "Channel edited");
+											return true;
+										}
+										if(newvalue.equalsIgnoreCase("false")) {
+											c.setPermanent(false);
+											return true;
+										}
+										return false;
+									}
+									else {
+										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+									}
 								}
 								else if(property.equalsIgnoreCase("owner")) {
-									c.setOwner(newvalue);
-									return true;
+									if(sender.hasPermission("heroicchat.channel.edit.owner")) {
+										c.setOwner(newvalue);
+										return true;
+									}
 									
 								}
 							}

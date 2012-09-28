@@ -18,13 +18,27 @@ public class PlayerChannelKickCommand {
 	public boolean PlayerChannelKick(CommandSender sender, Command cmd, String label, String[] arg){
 		ChannelManager cm = new ChannelManager(plugin);
 		if(arg[0].equalsIgnoreCase("kick")) {
+			String player = arg[1];
+			Player p = getPlayerFromString(player);
+			Channel oldc = cm.getChannel(p);
+			if(oldc.getOwner().equalsIgnoreCase(sender.getName())) {
+				if(!sender.hasPermission("heroicchat.channel.kick.own")) {
+					sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+					return true;
+				}
+				
+			}
+			else if(!sender.hasPermission("heroicchat.channel.kick.others")) {
+				sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+				return true;
+			}
 			if(sender.hasPermission("heroicchat.player.kick")) {
 				if(arg.length ==2) {//hc kick <player>
-					String player = arg[1];
+					
 					if(playerIsOnline(player)) {
-						Player p = getPlayerFromString(player);
+						
 						Channel defaultc = cm.getChannel("default");
-						Channel oldc = cm.getChannel(p);
+						
 						
 						defaultc.broadcast(ChatColor.GREEN + "[HeroicChat] " +ChatColor.AQUA + p.getName() + " has joined your channel");
 						p.sendMessage(ChatColor.RED + "You have been kick from the channel");

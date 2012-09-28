@@ -1,6 +1,7 @@
 package heroicchat.executors;
 
 import heroicchat.events.channel.ChannelDeleteEvent;
+import heroicchat.main.Channel;
 import heroicchat.main.HeroicChat;
 import heroicchat.managers.ChannelManager;
 
@@ -20,6 +21,17 @@ public class PlayerChannelDeleteCommand {
 		if(arg.length == 2) {
 			if(arg[0].equals("delete")) {
 				if(cm.channelExists(arg[1])) {
+					Channel c = cm.getChannel(arg[1]);
+					if(c.getOwner().equals(sender.getName())) {
+						if(!sender.hasPermission("heroicchat.channel.delete.own")) {
+							
+							return true;
+						}
+					}
+					else if(!sender.hasPermission("heroicchat.channel.delete.others")){
+						sender.sendMessage(ChatColor.RED + "You don't have permission to do this");
+						return true;
+					}
 					if(cm.getChannel(arg[1]).getOwner() == null || cm.getChannel(arg[1]).getOwner().equals(sender.getName())) {
 						if(arg[1].equals("default")) {
 							sender.sendMessage(ChatColor.RED + "You can not delete the default channel");

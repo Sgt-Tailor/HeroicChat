@@ -25,7 +25,9 @@ public class PlayerDisconnectListener implements Listener {
 		c.removeReceiver(name);
 		c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + name + " has left your channel");
 		if(c.getReceivers().size() == 0) {
-			cm.deleteChannel(c.getName());
+			if(!c.isPermanent()) {
+				cm.deleteChannel(c.getName());
+			}
 		}
 		
 	}

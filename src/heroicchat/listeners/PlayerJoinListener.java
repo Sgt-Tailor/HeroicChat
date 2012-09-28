@@ -1,5 +1,7 @@
 package heroicchat.listeners;
 
+import java.util.ArrayList;
+
 import heroicchat.main.Channel;
 import heroicchat.main.HeroicChat;
 import heroicchat.managers.ChannelManager;
@@ -20,6 +22,10 @@ public class PlayerJoinListener implements Listener{
 		Player p = event.getPlayer();
 		String name = event.getPlayer().getName();
 		ChannelManager cm = new ChannelManager(plugin);
+		if(!plugin.receivelist.containsKey(p.getName())) {
+			ArrayList<String> newlist = new ArrayList<String>();
+			plugin.receivelist.put(p.getName(), newlist);
+		}
 		if(!plugin.players.containsKey(name)) {
 			Channel c = cm.getChannel("default");
 			plugin.players.put(name, c.getName());

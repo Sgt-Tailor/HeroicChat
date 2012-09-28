@@ -29,6 +29,7 @@ public class HeroicChat extends JavaPlugin {
 	public ArrayList<String> cnames = new ArrayList<String>();
 	public HashMap<String, Channel> channels = new HashMap<String,Channel>();
 	public HashMap<String, String> players = new HashMap<String,String>();
+	public HashMap<String, ArrayList<String>> receivelist = new HashMap<String, ArrayList<String>>();
 	
 	
 	public final Logger logger = Logger.getLogger("Minecraft");
@@ -94,6 +95,13 @@ public class HeroicChat extends JavaPlugin {
 			FileOutputStream f_out = new FileOutputStream(getDataFolder().getAbsolutePath() + "/players.data");
 			ObjectOutputStream obj_out = new ObjectOutputStream (f_out);
 			obj_out.writeObject ( players );
+		    }catch(Exception e) {
+		    	e.printStackTrace();
+		}
+		try {
+			FileOutputStream f_out = new FileOutputStream(getDataFolder().getAbsolutePath() + "/recievelist.data");
+			ObjectOutputStream obj_out = new ObjectOutputStream (f_out);
+			obj_out.writeObject ( receivelist );
 		    }catch(Exception e) {
 		    	e.printStackTrace();
 		}
@@ -164,10 +172,17 @@ public class HeroicChat extends JavaPlugin {
 	@SuppressWarnings("unchecked")
 	public void deSerialiseObjects() {
 		try {
-			FileInputStream f_in = new FileInputStream(getDataFolder().getAbsolutePath() + "/channels.data");
+			FileInputStream f_in = new FileInputStream(getDataFolder().getAbsolutePath() + "/recievelist.data");
 			// Read object using ObjectInputStream
 			ObjectInputStream obj_in = 	new ObjectInputStream (f_in);
 			Object obj = obj_in.readObject();
+			if (obj instanceof HashMap) {
+				receivelist = (HashMap<String,ArrayList<String>>) obj;
+			}
+			f_in = new FileInputStream(getDataFolder().getAbsolutePath() + "/channels.data");
+			// Read object using ObjectInputStream
+			obj_in = 	new ObjectInputStream (f_in);
+			obj = obj_in.readObject();
 			if (obj instanceof HashMap) {
 				channels = (HashMap<String,Channel>) obj;
 			}
@@ -187,6 +202,7 @@ public class HeroicChat extends JavaPlugin {
 			if (obj instanceof HashMap) {
 				players = (HashMap<String,String>) obj;
 			}
+			logger.info("Tah Fuck");
 		}catch(Exception e) {
 			
 				

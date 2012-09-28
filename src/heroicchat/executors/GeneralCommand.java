@@ -74,6 +74,19 @@ public class GeneralCommand implements CommandExecutor {
 						return true;
 					}
 				}
+				if(arg[0].equalsIgnoreCase("receive")) {
+					PlayerChannelReceiveCommand executor = new PlayerChannelReceiveCommand(plugin);
+					if(executor.playerRecieveCommand((Player) sender, arg)) {
+						return true;
+					}
+				}
+				if(arg[0].equalsIgnoreCase("stopreceive")) {
+					PlayerChannelReceiveCommand executor = new PlayerChannelReceiveCommand(plugin);
+					if(executor.playerRecieveCommand((Player) sender, arg)) {
+						return true;
+					}
+				}
+				
 				if(arg[0].equalsIgnoreCase("list")) {
 					sender.sendMessage(ChatColor.GOLD + "-----List-of-Channels-----");
 					for(int i=0; i<plugin.cnames.size(); i++) {
@@ -111,6 +124,8 @@ public class GeneralCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GOLD + "/hc info (name)" + ChatColor.GRAY + " display info about a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc join <name> (password)" + ChatColor.GRAY + " join a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc leave" + ChatColor.GRAY + " exit to the default channel");
+			sender.sendMessage(ChatColor.GOLD + "/hc receive <name> (password)" + ChatColor.GRAY + " listen to a channel");
+			sender.sendMessage(ChatColor.GOLD + "/hc stopreceive (name)" + ChatColor.GRAY + " stop listening to a channel");
 			return true;
 			
 		}

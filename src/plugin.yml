@@ -8,6 +8,18 @@ commands:
         aliases: [hc, heroicc]
         usage: /heroicchat
 permissions:
+    heroicchat.channel.delete.own:
+        default: true
+    heroicchat.channel.delete.others:
+        default: OP
+    heroicchat.channel.kick.own:
+        default: true
+    heroicchat.channel.kick.others:
+        default: OP
+    heroicchat.channel.create:
+        default: OP
+    heroicchat.channel.createpermanent:
+        default: OP
     heroicchat.channel.bypasslock:
         default: OP
     heroicchat.player.kick:
@@ -16,3 +28,11 @@ permissions:
         default: true
     heroicchat.channel.edit.all:
         default: OP
+    heroicchat.channel.edit.permanent:
+        default: OP
+    heroicchat.channel.edit.password:
+        default: true
+    heroicchat.channel.edit.prefix:
+        default: true
+    heroicchat.channel.edit.owner:
+        default: true
