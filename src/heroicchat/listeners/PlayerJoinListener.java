@@ -32,6 +32,7 @@ public class PlayerJoinListener implements Listener{
 			
 			c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + name + " has joined your channel");
 			c.addReceiver(name);
+			c.addMember(name);
 			p.sendMessage(ChatColor.YELLOW + "You have been put in the default channel");
 			return;
 			
@@ -42,6 +43,7 @@ public class PlayerJoinListener implements Listener{
 			
 			c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + name + " has joined your channel");
 			c.addReceiver(name);
+			c.addMember(name);
 			p.sendMessage(ChatColor.YELLOW + "You have been put in the default channel");
 			return;
 		}
@@ -50,6 +52,7 @@ public class PlayerJoinListener implements Listener{
 			String cname = c.getName();
 			c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + name + " has joined your channel");
 			c.addReceiver(name);
+			c.addMember(name);
 			event.getPlayer().sendMessage(ChatColor.YELLOW + "You have been put in the channel: " +ChatColor.GREEN + cname);
 			return;
 		}

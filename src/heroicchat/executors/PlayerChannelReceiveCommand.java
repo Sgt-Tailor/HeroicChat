@@ -77,6 +77,7 @@ public class PlayerChannelReceiveCommand {
 								if(c.getReceivers().contains(p.getName())) {
 									c.removeReceiver(p.getName());
 									p.sendMessage(ChatColor.GREEN + "You are now longer listening to that channel");
+									return true;
 								}
 								
 								else {

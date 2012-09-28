@@ -23,6 +23,7 @@ public class PlayerDisconnectListener implements Listener {
 		String name = p.getName();
 		Channel c = cm.getChannel(plugin.players.get(name));
 		c.removeReceiver(name);
+		c.removeMember(name);
 		c.broadcast(ChatColor.GREEN+"[HeroicChat] " + ChatColor.DARK_AQUA + name + " has left your channel");
 		if(c.getReceivers().size() == 0) {
 			if(!c.isPermanent()) {

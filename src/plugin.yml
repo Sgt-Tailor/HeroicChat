@@ -17,7 +17,7 @@ permissions:
     heroicchat.channel.kick.others:
         default: OP
     heroicchat.channel.create:
-        default: OP
+        default: true
     heroicchat.channel.createpermanent:
         default: OP
     heroicchat.channel.bypasslock:

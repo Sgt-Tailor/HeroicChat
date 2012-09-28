@@ -14,9 +14,9 @@ public class ChannelManager{
 		plugin=instance;
 	}
 	
-	public void createNewChannel(String name, String prefix, boolean locked, String password, boolean permanent) {
+	public void createNewChannel(String name, String prefix, String owner, boolean locked, String password, boolean permanent) {
 		if(!plugin.cnames.contains(name)) {
-			Channel c = new Channel(prefix, name, password, locked, permanent);
+			Channel c = new Channel(prefix, name, owner, password, locked, permanent);
 			plugin.channels.put(name, c);
 			plugin.cnames.add(name);
 			return;
@@ -47,6 +47,7 @@ public class ChannelManager{
 	public void playerSwitchChannel(Player p, Channel newer) {
 		Channel old = getChannel(plugin.players.get(p.getName()));
 		old.removeReceiver(p.getName());
+		old.removeMember(p.getName());
 		if(old.getReceivers().size() == 0) {
 			if(!old.isPermanent()) {
 			deleteChannel(old.getName());
@@ -54,6 +55,7 @@ public class ChannelManager{
 		}
 		plugin.players.put(p.getName(), newer.getName());
 		newer.addReceiver(p.getName());
+		newer.addMember(p.getName());
 	}
 	public void deleteChannel(String name) {
 		Channel c = getChannel(name);

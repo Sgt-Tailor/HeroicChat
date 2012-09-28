@@ -38,6 +38,12 @@ public class GeneralCommand implements CommandExecutor {
 						return true;
 					}
 				}
+				if(arg[0].equalsIgnoreCase("say")) {
+					PlayerChannelSayCommand executor = new PlayerChannelSayCommand(plugin);
+					if(executor.playerChannelSayCommand((Player) sender, arg)) {
+						return true;
+					}
+				}
 				if(arg[0].equalsIgnoreCase("create")) {
 					PlayerChannelCreateCommand executor = new PlayerChannelCreateCommand(plugin);
 					if(executor.PlayerChannelCreate(sender, cmd, label, arg)) {
@@ -92,7 +98,7 @@ public class GeneralCommand implements CommandExecutor {
 					for(int i=0; i<plugin.cnames.size(); i++) {
 						Channel c = cm.getChannel(plugin.cnames.get(i));
 						String name = c.getName();
-						String amountofmembers = Integer.toString(c.getReceivers().size());
+						String amountofmembers = Integer.toString(c.getMembers().size());
 						String locked = Boolean.toString(c.isLocked());
 						String permanent = Boolean.toString(c.isPermanent());
 						sender.sendMessage(ChatColor.AQUA+name+ChatColor.GRAY + " --- members: "+amountofmembers+", locked: "+locked+ ", permanent: " +permanent);
@@ -121,6 +127,7 @@ public class GeneralCommand implements CommandExecutor {
 			sender.sendMessage(ChatColor.GOLD + "/hc delete <name>" + ChatColor.GRAY + " delete a channel channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc kick <name>" + ChatColor.GRAY + " kick a player from a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc list" + ChatColor.GRAY + " list all channels");
+			sender.sendMessage(ChatColor.GOLD + "/hc say <name> <message>" + ChatColor.GRAY + " broadcast a message to a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc info (name)" + ChatColor.GRAY + " display info about a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc join <name> (password)" + ChatColor.GRAY + " join a channel");
 			sender.sendMessage(ChatColor.GOLD + "/hc leave" + ChatColor.GRAY + " exit to the default channel");

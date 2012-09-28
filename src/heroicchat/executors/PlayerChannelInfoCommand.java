@@ -28,9 +28,11 @@ public class PlayerChannelInfoCommand implements CommandExecutor{
 					String name = c.getName();
 					String locked = Boolean.toString(c.isLocked());
 					String permanent = Boolean.toString(c.isPermanent());
-					String members = Integer.toString(c.getReceivers().size());
-					String memberstring = ArrayListToMessage(c.getReceivers());
+					String members = Integer.toString(c.getMembers().size());
+					String memberstring = ArrayListToMessage(c.getMembers());
+					String owner = c.getOwner();
 					p.sendMessage(ChatColor.GOLD + "----Info-About-Channel-"+name+"----");
+					p.sendMessage(ChatColor.AQUA + "Owner: " + ChatColor.GRAY + owner);
 					p.sendMessage(ChatColor.AQUA + "Permanent: " + ChatColor.GRAY + permanent);
 					p.sendMessage(ChatColor.AQUA + "Locked: " + ChatColor.GRAY + locked);
 					p.sendMessage(ChatColor.AQUA + "Members ("+members+"): " + ChatColor.GRAY + memberstring);
@@ -44,9 +46,11 @@ public class PlayerChannelInfoCommand implements CommandExecutor{
 						String name = c.getName();
 						String locked = Boolean.toString(c.isLocked());
 						String permanent = Boolean.toString(c.isPermanent());
-						String members = Integer.toString(c.getReceivers().size());
-						String memberstring = ArrayListToMessage(c.getReceivers());
+						String members = Integer.toString(c.getMembers().size());
+						String memberstring = ArrayListToMessage(c.getMembers());
+						String owner = c.getOwner();
 						p.sendMessage(ChatColor.GOLD + "----Info-About-Channel-"+name+"----");
+						p.sendMessage(ChatColor.AQUA + "Owner: " + ChatColor.GRAY + owner);
 						p.sendMessage(ChatColor.AQUA + "Permanent: " + ChatColor.GRAY + permanent);
 						p.sendMessage(ChatColor.AQUA + "Locked: " + ChatColor.GRAY + locked);
 						p.sendMessage(ChatColor.AQUA + "Members ("+members+"): " + ChatColor.GRAY + memberstring);

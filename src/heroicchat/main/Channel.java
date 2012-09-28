@@ -15,18 +15,28 @@ public class Channel implements Serializable{
 	private String prefix;
 	private String name;
 	private ArrayList<String> receivers = new ArrayList<String>();
+	private ArrayList<String> members = new ArrayList<String>();
 	private String password;
 	private boolean locked;
 	private boolean permanent;
 	
-	public Channel(String prefix, String name, String password, boolean locked, boolean permanent) {
+	public Channel(String prefix, String name, String owner, String password, boolean locked, boolean permanent) {
+		this.owner = owner;
 		this.prefix = "["+prefix+"]";
 		this.name = name;
 		this.password = password;
 		this.locked = locked;
 		this.permanent = permanent;
 	}
-	
+	public ArrayList<String> getMembers(){
+		return members;
+	}
+	public void addMember(String name) {
+		members.add(name);
+	}
+	public void removeMember(String name) {
+		members.remove(name);
+	}
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
@@ -80,9 +90,9 @@ public class Channel implements Serializable{
 		}
 	}
 	public void broadcast(String message) {
-		if(!receivers.isEmpty()) {
-			for(int i=0; i<receivers.size();i++) {
-				Bukkit.getPlayerExact(receivers.get(i)).sendMessage(message);
+		if(!members.isEmpty()) {
+			for(int i=0; i<members.size();i++) {
+				Bukkit.getPlayerExact(members.get(i)).sendMessage(message);
 			}
 		}
 	}

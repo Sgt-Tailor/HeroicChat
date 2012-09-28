@@ -38,7 +38,7 @@ public class PlayerChannelCreateCommand {
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						
 						if(!event.isCancelled()) {
-							cm.createNewChannel(cname, cname, false, null, false);
+							cm.createNewChannel(cname, cname,sender.getName(), false, null, false);
 							Channel current = cm.getChannel(plugin.players.get(sender.getName()));
 							Channel newer = cm.getChannel(cname);
 							PlayerSwitchChannelEvent pevent = new PlayerSwitchChannelEvent(p, current, newer);
@@ -74,7 +74,7 @@ public class PlayerChannelCreateCommand {
 						Bukkit.getServer().getPluginManager().callEvent(event);
 						
 						if(!event.isCancelled()) {
-							cm.createNewChannel(cname, cname, false, null, true);
+							cm.createNewChannel(cname, cname,sender.getName(), false, null, true);
 							Channel current = cm.getChannel(plugin.players.get(sender.getName()));
 							Channel newer = cm.getChannel(cname);
 							PlayerSwitchChannelEvent pevent = new PlayerSwitchChannelEvent(p, current, newer);

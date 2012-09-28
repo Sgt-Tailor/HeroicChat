@@ -45,7 +45,7 @@ public boolean PlayerChannelEdit(CommandSender sender, Command cmd, String label
 									}
 								}
 								else if(property.equalsIgnoreCase("prefix")) {
-									if(sender.hasPermission("heroicchat.channel.edit.password")) {
+									if(sender.hasPermission("heroicchat.channel.edit.prefix")) {
 										c.setPrefix(newvalue);
 										sender.sendMessage(ChatColor.GREEN + "Channel edited");
 										return true;
@@ -85,21 +85,49 @@ public boolean PlayerChannelEdit(CommandSender sender, Command cmd, String label
 									}
 									else {
 										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+										return true;
 									}
 								}
 								else if(property.equalsIgnoreCase("owner")) {
 									if(sender.hasPermission("heroicchat.channel.edit.owner")) {
 										c.setOwner(newvalue);
+										sender.sendMessage(ChatColor.GREEN + "Channel edited");
 										return true;
 									}
+									else {
+										sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+									}
 									
+									
+								}
+								else {
+									sender.sendMessage(ChatColor.RED + "That is not a property of a channel, the properties that you can change are: " +ChatColor.GRAY + "password, locked, permanent, prefix, owner");
+									return true;
 								}
 							}
 						}
+						else {
+							sender.sendMessage(ChatColor.RED + "You are not allowed to edit this channel");
+						}
+					}
+					else {
+						if(property.equalsIgnoreCase("prefix")) {
+							if(sender.hasPermission("heroicchat.channel.edit.prefix")) {
+								Channel c = cm.getChannel(cname);
+								c.setPrefix(newvalue);
+								sender.sendMessage(ChatColor.GREEN + "Channel edited");
+								return true;
+							}
+							else {
+								sender.sendMessage(ChatColor.RED + "You don't have permissions to do this");
+								return true;
+							}
+						}	
 					}
 				}
 				else {
 					sender.sendMessage(ChatColor.RED + "That channel does not exist");
+					return true;
 				}
 				
 			}

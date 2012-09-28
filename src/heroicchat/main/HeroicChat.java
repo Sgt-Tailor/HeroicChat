@@ -69,7 +69,7 @@ public class HeroicChat extends JavaPlugin {
 		this.logger.info(pdfFile.getName() + " is now disabled ");
 	}
 	private void createDefaultChannel() {
-		Channel c = new Channel("default", "default", null, false, true);
+		Channel c = new Channel("default", "default", "The Server", null, false, true);
 		channels.put("default", c);
 		cnames.add("default");
 		players.put("Player", c.getName());

@@ -24,6 +24,7 @@ public class PlayerChatListener implements Listener{
 	
 	@EventHandler (priority = EventPriority.HIGH)
 	public void onPlayerChat(AsyncPlayerChatEvent event){
+		
 		ChannelManager cm = new ChannelManager(plugin);
 		Channel c = cm.getChannel(plugin.players.get(event.getPlayer().getName()));
 		ArrayList<String> receivers = c.getReceivers();
@@ -33,7 +34,11 @@ public class PlayerChatListener implements Listener{
 		}
 		
 		if(plugin.config.getBoolean("show-channel-prefix")) {
-		event.setFormat( c.getPrefix() + event.getFormat());
+			String prefix = removeColorsFromString(c.getPrefix());
+		event.setFormat( prefix + event.getFormat());
+		}
+		if(event.getRecipients() == null) {
+			return;
 		}
 		PlayerChannelChatEvent playerevent = new PlayerChannelChatEvent(event.getPlayer(), c, event.getMessage(), event.getFormat(), players);//create new event
 		Bukkit.getPluginManager().callEvent(playerevent);//call playerevent
